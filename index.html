@@ -3,335 +3,333 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prevención de la Violencia Digital | Departamento de TIC - UPEC</title>
+  <title>Centro de Ciber-Convivencia TIC | Prevención de la Violencia Digital - UPEC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
 </head>
 <body>
-  <div class="page-shell">
-    <!-- Logo izquierdo exterior: Sostenibilidad -->
-    <aside class="outer-rail outer-rail-left" aria-label="Sello UPEC Sostenibles de verdad">
-      <div class="outer-logo-card outer-logo-card-tall">
-        <img
-          src="img/sostenibilidad.jpeg"
-          alt="Sostenibles de verdad - #1 en el Ecuador - UI GreenMetric"
-          class="outer-logo-img"
-        />
+  <div class="app-shell">
+    <!-- BARRA LATERAL IZQUIERDA (Estilo App Tecnológica TIC) -->
+    <aside class="sidebar">
+      <div class="brand-card">
+        <span class="brand-tag">UPEC · Concurso Ponte 5</span>
+        <h2 class="brand-dept">Departamento de TIC</h2>
+        <p class="brand-sub">Tecnologías de la Información y Comunicación</p>
       </div>
-    </aside>
 
-    <!-- Marco principal de la experiencia interactiva TIC -->
-    <div class="board-wrapper">
-      <header class="board-header">
-        <div class="header-top-row">
-          <div class="header-upec-logo">
-            <img
-              src="img/upec.jpeg"
-              alt="Logotipo Universidad Politécnica Estatal del Carchi - UPEC"
-              class="upec-logo-img"
-            />
-          </div>
-
-          <div class="header-titles">
-            <p class="area-title">Departamento de Tecnologías de la Información y Comunicación (TIC)</p>
-            <h1>Escudo Digital del Buen Trato: <span>Prevención de la Violencia Digital</span></h1>
-            <p class="subtitle">
-              Construyendo una cultura de respeto, privacidad y empatía en nuestros entornos digitales
-            </p>
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-outline btn-sm btn-fullscreen"
-            id="btn-fullscreen"
-            title="Ocultar pestañas del navegador (también puedes presionar F11)"
-          >
-            ⛶ Pantalla Completa
-          </button>
-        </div>
-      </header>
-
-      <!-- Navegación por módulos -->
-      <nav class="stepper-nav" aria-label="Módulos interactivos sobre violencia digital">
-        <button type="button" class="step-pill is-active" data-tab="1">
-          <span class="step-num">1</span>
-          <span class="step-label">¿Qué es?</span>
+      <!-- Navegación principal -->
+      <nav class="nav-menu" aria-label="Secciones interactivas">
+        <button type="button" class="nav-btn is-active" data-view="radar">
+          <span class="nav-icon" aria-hidden="true">📡</span>
+          <span>1. Radar Digital</span>
         </button>
-        <button type="button" class="step-pill" data-tab="2">
-          <span class="step-num">2</span>
-          <span class="step-label">Detector</span>
+        <button type="button" class="nav-btn" data-view="simulator">
+          <span class="nav-icon" aria-hidden="true">📱</span>
+          <span>2. Simulador Chat</span>
         </button>
-        <button type="button" class="step-pill" data-tab="3">
-          <span class="step-num">3</span>
-          <span class="step-label">Prevención</span>
+        <button type="button" class="nav-btn" data-view="shield">
+          <span class="nav-icon" aria-hidden="true">🛡️</span>
+          <span>3. Escudo y SOS</span>
         </button>
-        <button type="button" class="step-pill" data-tab="4">
-          <span class="step-num">4</span>
-          <span class="step-label">Compromiso TIC</span>
+        <button type="button" class="nav-btn" data-view="wall">
+          <span class="nav-icon" aria-hidden="true">🤝</span>
+          <span>4. Muro TIC</span>
         </button>
       </nav>
 
-      <main class="wizard-container">
-        <!-- MÓDULO 1: DEFINIR E IDENTIFICAR LA VIOLENCIA DIGITAL -->
-        <section class="step-panel is-active" data-tab="1" aria-labelledby="titulo-que-es">
-          <div class="panel-header-inline">
+      <!-- Medidor gamificado de progreso -->
+      <div class="shield-meter">
+        <div class="meter-head">
+          <span>Nivel de Escudo</span>
+          <strong id="shield-percent">25%</strong>
+        </div>
+        <div class="meter-track">
+          <div class="meter-fill" id="shield-fill" style="width: 25%"></div>
+        </div>
+        <p class="meter-hint" id="meter-hint">Explora los 4 módulos para activar tu escudo</p>
+      </div>
+
+      <!-- Sellos oficiales requeridos por el concurso -->
+      <div class="sidebar-logos" aria-label="Sellos oficiales del concurso">
+        <div class="logo-pill logo-upec">
+          <img src="img/upec.jpeg" alt="Universidad Politécnica Estatal del Carchi - UPEC" />
+        </div>
+        <div class="logo-row-2">
+          <div class="logo-pill">
+            <img src="img/ponte%205.jpeg" alt="Campaña Ponte 5" />
+          </div>
+          <div class="logo-pill">
+            <img src="img/sostenibilidad.jpeg" alt="UPEC Sostenibles de verdad" />
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="main-area">
+      <!-- Barra superior -->
+      <header class="topbar">
+        <div>
+          <span class="live-dot" aria-hidden="true"></span>
+          <h1 class="main-title">
+            Escudo Digital del Buen Trato: <span>Prevención de la Violencia Digital</span>
+          </h1>
+        </div>
+        <button
+          type="button"
+          class="btn btn-glass"
+          id="btn-fullscreen"
+          title="Ocultar pestañas del navegador (también puedes usar F11)"
+        >
+          ⛶ Pantalla Completa
+        </button>
+      </header>
+
+      <!-- VISTAS INTERACTIVAS -->
+      <main class="stage">
+        <!-- VISTA 1: RADAR DIGITAL (Inspector interactivo) -->
+        <section class="view-panel is-active" data-view="radar" aria-labelledby="h-radar">
+          <div class="view-head">
             <div>
-              <h2 id="titulo-que-es">¿Qué es la Violencia Digital?</h2>
-              <p class="panel-desc">
-                Es toda agresión, hostigamiento, vulneración de privacidad o daño emocional ejercido a través
-                de celulares, redes sociales, correos o plataformas digitales.
-              </p>
+              <h2 id="h-radar">📡 Radar de Violencia Digital</h2>
+              <p>Selecciona cada amenaza para analizar cómo se manifiesta en el entorno laboral y universitario.</p>
             </div>
-            <span class="info-chip">🛡️ Haz clic en cada tarjeta para identificar sus formas</span>
-          </div>
-
-          <div class="cards-grid-4">
-            <article class="flip-card" tabindex="0">
-              <div class="card-icon" aria-hidden="true">💬</div>
-              <h3>Ciberacoso Laboral</h3>
-              <p class="card-summary">Hostigamiento o burlas por chats o correos.</p>
-              <div class="card-detail" hidden>
-                Mensajes intimidatorios, ridiculización en grupos de trabajo, memes ofensivos o presión agresiva fuera del horario laboral.
-              </div>
-              <span class="card-toggle-hint">Ver detalle ▾</span>
-            </article>
-
-            <article class="flip-card" tabindex="0">
-              <div class="card-icon" aria-hidden="true">📸</div>
-              <h3>Difusión sin Consentimiento</h3>
-              <p class="card-summary">Compartir datos, fotos o capturas privadas.</p>
-              <div class="card-detail" hidden>
-                Reenviar conversaciones privadas, fotografías íntimas o datos personales (doxxing) sin autorización expresa de la persona.
-              </div>
-              <span class="card-toggle-hint">Ver detalle ▾</span>
-            </article>
-
-            <article class="flip-card" tabindex="0">
-              <div class="card-icon" aria-hidden="true">🎭</div>
-              <h3>Suplantación de Identidad</h3>
-              <p class="card-summary">Perfiles falsos para dañar la reputación.</p>
-              <div class="card-detail" hidden>
-                Crear cuentas falsas o usar la cuenta de un compañero sin permiso para enviar mensajes ofensivos o desacreditar su imagen.
-              </div>
-              <span class="card-toggle-hint">Ver detalle ▾</span>
-            </article>
-
-            <article class="flip-card" tabindex="0">
-              <div class="card-icon" aria-hidden="true">🚫</div>
-              <h3>Exclusión Digital</h3>
-              <p class="card-summary">Aislamiento deliberado en canales oficiales.</p>
-              <div class="card-detail" hidden>
-                Bloquear, silenciar o excluir intencionalmente a un integrante de grupos de coordinación o información laboral para perjudicarlo.
-              </div>
-              <span class="card-toggle-hint">Ver detalle ▾</span>
-            </article>
-          </div>
-
-          <div class="step-footer">
-            <span class="footer-note">💡 El respeto en línea tiene el mismo valor que el respeto presencial.</span>
-            <button type="button" class="btn btn-primary btn-go-tab" data-next="2">
-              Ir al Detector Interactivo →
+            <button type="button" class="btn btn-cyan btn-jump" data-jump="simulator">
+              Probar Simulador →
             </button>
+          </div>
+
+          <div class="radar-grid">
+            <div class="threat-list" role="tablist" aria-label="Tipos de violencia digital">
+              <button type="button" class="threat-item is-selected" data-threat="ciberacoso">
+                <span class="threat-emoji">💬</span>
+                <div>
+                  <strong>Ciberacoso Laboral</strong>
+                  <small>Chats, memes y presión fuera de horario</small>
+                </div>
+              </button>
+              <button type="button" class="threat-item" data-threat="doxxing">
+                <span class="threat-emoji">📸</span>
+                <div>
+                  <strong>Difusión sin Consentimiento</strong>
+                  <small>Capturas, fotos y datos privados</small>
+                </div>
+              </button>
+              <button type="button" class="threat-item" data-threat="suplantacion">
+                <span class="threat-emoji">🎭</span>
+                <div>
+                  <strong>Suplantación de Identidad</strong>
+                  <small>Cuentas falsas y daño reputacional</small>
+                </div>
+              </button>
+              <button type="button" class="threat-item" data-threat="exclusion">
+                <span class="threat-emoji">🚫</span>
+                <div>
+                  <strong>Exclusión Digital</strong>
+                  <small>Aislamiento de canales oficiales</small>
+                </div>
+              </button>
+            </div>
+
+            <div class="threat-inspector" id="threat-inspector" aria-live="polite">
+              <!-- Se llena dinámicamente desde script.js -->
+            </div>
           </div>
         </section>
 
-        <!-- MÓDULO 2: DETECTOR INTERACTIVO (CASOS PRÁCTICOS) -->
-        <section class="step-panel" data-tab="2" aria-labelledby="titulo-detector" hidden>
-          <div class="panel-header-inline">
+        <!-- VISTA 2: SIMULADOR DE CHAT / WHATSAPP -->
+        <section class="view-panel" data-view="simulator" aria-labelledby="h-sim" hidden>
+          <div class="view-head">
             <div>
-              <h2 id="titulo-detector">Detector: ¿Buen Trato o Violencia Digital?</h2>
-              <p class="panel-desc">
-                Analiza cada situación cotidiana de oficina y decide si promueve el respeto o constituye violencia digital.
-              </p>
+              <h2 id="h-sim">📱 Simulador: ¿Qué harías frente a este mensaje?</h2>
+              <p>Analiza la situación en el teléfono y decide si es Buen Trato o Violencia Digital.</p>
             </div>
-            <span class="score-badge" id="quiz-score">Aciertos: 0 / 4</span>
+            <span class="score-pill" id="sim-score">Aciertos: 0 / 4</span>
           </div>
 
-          <div class="quiz-box">
-            <div class="quiz-progress" id="quiz-progress">Caso 1 de 4</div>
-            <p class="quiz-question" id="quiz-question"></p>
-
-            <div class="quiz-actions" id="quiz-actions">
-              <button type="button" class="btn btn-primary btn-choice" data-choice="safe">
-                ✅ Es Buen Trato Digital
-              </button>
-              <button type="button" class="btn btn-danger btn-choice" data-choice="violence">
-                🚨 Es Violencia Digital
-              </button>
-            </div>
-
-            <div class="quiz-feedback" id="quiz-feedback" hidden></div>
-
-            <div class="quiz-next-wrap" id="quiz-next-wrap" hidden>
-              <button type="button" class="btn btn-accent" id="btn-quiz-next">
-                Siguiente Caso →
-              </button>
-            </div>
-          </div>
-
-          <div class="step-footer">
-            <button type="button" class="btn btn-outline btn-go-tab" data-next="1">
-              ← Volver a ¿Qué es?
-            </button>
-            <button type="button" class="btn btn-primary btn-go-tab" data-next="3">
-              Ver Estrategias de Prevención →
-            </button>
-          </div>
-        </section>
-
-        <!-- MÓDULO 3: ESTRATEGIAS DE PREVENCIÓN Y PROTOCOLO DE ACTUACIÓN -->
-        <section class="step-panel" data-tab="3" aria-labelledby="titulo-prevencion" hidden>
-          <div class="panel-header-inline">
-            <div>
-              <h2 id="titulo-prevencion">Estrategias de Prevención y Protocolo TIC</h2>
-              <p class="panel-desc">
-                Acciones positivas para prevenir la violencia digital y qué hacer si eres víctima o testigo.
-              </p>
-            </div>
-          </div>
-
-          <div class="prevention-grid">
-            <!-- Columna 1: Pilares positivos -->
-            <div class="prevention-card">
-              <h3>🌟 4 Pilares del Buen Trato Digital</h3>
-              <ul class="clean-list">
-                <li><strong>Piensa antes de reenviar:</strong> No seas cómplice difundiendo rumores, capturas o burlas.</li>
-                <li><strong>Cuida tu privacidad:</strong> Usa contraseñas seguras, activa el doble factor (2FA) y no compartas claves.</li>
-                <li><strong>Comunica con empatía:</strong> Evita mensajes agresivos o en mayúsculas; respeta horarios laborales.</li>
-                <li><strong>Pide consentimiento:</strong> Nunca publiques fotos, audios o datos de compañeros sin su permiso.</li>
-              </ul>
-            </div>
-
-            <!-- Columna 2: Protocolo interactivo de 3 pasos -->
-            <div class="prevention-card prevention-card-protocol">
-              <h3>🆘 ¿Qué hacer ante un caso de Violencia Digital?</h3>
-              <div class="protocol-steps">
-                <div class="protocol-item">
-                  <span class="protocol-num">1</span>
-                  <div>
-                    <strong>Conserva la evidencia</strong>
-                    <p>No borres mensajes; toma capturas de pantalla con fecha, hora y usuario visible.</p>
-                  </div>
+          <div class="sim-layout">
+            <!-- Mockup realista de teléfono -->
+            <div class="phone-mockup">
+              <div class="phone-notch"></div>
+              <div class="phone-header">
+                <span class="chat-avatar" id="chat-avatar">💼</span>
+                <div>
+                  <strong id="chat-sender">Grupo Oficina</strong>
+                  <small id="chat-time">Hoy · 10:15</small>
                 </div>
-                <div class="protocol-item">
-                  <span class="protocol-num">2</span>
-                  <div>
-                    <strong>Bloquea y reporta</strong>
-                    <p>Corta el contacto en la plataforma y reporta la cuenta o contenido ofensivo.</p>
-                  </div>
-                </div>
-                <div class="protocol-item">
-                  <span class="protocol-num">3</span>
-                  <div>
-                    <strong>Busca apoyo institucional</strong>
-                    <p>Acude a Bienestar Universitario, Talento Humano o al equipo de TIC para soporte técnico.</p>
-                  </div>
-                </div>
+              </div>
+              <div class="phone-body">
+                <div class="chat-bubble" id="chat-bubble"></div>
+              </div>
+            </div>
+
+            <!-- Panel de decisión -->
+            <div class="sim-controls">
+              <div class="sim-case-badge" id="sim-progress">Caso 1 de 4</div>
+              <p class="sim-prompt">Evalúa este mensaje recibido en el entorno laboral:</p>
+
+              <div class="sim-buttons" id="sim-buttons">
+                <button type="button" class="btn btn-emerald btn-sim-choice" data-choice="safe">
+                  ✅ Es Buen Trato Digital
+                </button>
+                <button type="button" class="btn btn-coral btn-sim-choice" data-choice="violence">
+                  🚨 Es Violencia Digital
+                </button>
+              </div>
+
+              <div class="sim-feedback" id="sim-feedback" hidden></div>
+
+              <div class="sim-next-row">
+                <button type="button" class="btn btn-amber" id="btn-sim-next" hidden>
+                  Siguiente Mensaje →
+                </button>
+                <button type="button" class="btn btn-glass btn-jump" data-jump="shield">
+                  Ver Escudo y Protocolo →
+                </button>
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="step-footer">
-            <button type="button" class="btn btn-outline btn-go-tab" data-next="2">
-              ← Volver al Detector
-            </button>
-            <button type="button" class="btn btn-primary btn-go-tab" data-next="4">
+        <!-- VISTA 3: ESCUDO Y PROTOCOLO SOS -->
+        <section class="view-panel" data-view="shield" aria-labelledby="h-shield" hidden>
+          <div class="view-head">
+            <div>
+              <h2 id="h-shield">🛡️ Escudo TIC: Prevención y Protocolo SOS</h2>
+              <p>Buenas prácticas de ciudadanía digital y pasos clave si presencias o sufres violencia digital.</p>
+            </div>
+            <button type="button" class="btn btn-cyan btn-jump" data-jump="wall">
               Firmar Compromiso TIC →
             </button>
           </div>
+
+          <div class="shield-columns">
+            <div class="glass-card">
+              <h3>✨ 4 Reglas de Oro del Buen Trato Digital</h3>
+              <div class="rules-list">
+                <div class="rule-item">
+                  <span class="rule-badge">01</span>
+                  <div>
+                    <strong>Piensa antes de reenviar</strong>
+                    <p>No compartas memes, burlas ni capturas privadas. Cortar la cadena detiene el acoso.</p>
+                  </div>
+                </div>
+                <div class="rule-item">
+                  <span class="rule-badge">02</span>
+                  <div>
+                    <strong>Respeta la privacidad y horarios</strong>
+                    <p>Pide permiso antes de publicar fotos de colegas y respeta los tiempos de descanso.</p>
+                  </div>
+                </div>
+                <div class="rule-item">
+                  <span class="rule-badge">03</span>
+                  <div>
+                    <strong>Empatía en cada pantalla</strong>
+                    <p>Detrás de cada usuario hay una persona. Escribe con el mismo respeto que en persona.</p>
+                  </div>
+                </div>
+                <div class="rule-item">
+                  <span class="rule-badge">04</span>
+                  <div>
+                    <strong>Seguridad digital activa</strong>
+                    <p>Usa contraseñas robustas y doble factor (2FA) para evitar suplantaciones.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card glass-card-sos">
+              <h3>🆘 Protocolo de Respuesta en 3 Pasos</h3>
+              <div class="sos-timeline">
+                <div class="sos-step">
+                  <div class="sos-num">1</div>
+                  <div>
+                    <strong>Conserva la evidencia</strong>
+                    <p>No borres los mensajes. Toma capturas donde se vea fecha, hora y usuario.</p>
+                  </div>
+                </div>
+                <div class="sos-step">
+                  <div class="sos-num">2</div>
+                  <div>
+                    <strong>Bloquea y reporta</strong>
+                    <p>Restringe al agresor en la plataforma y reporta la cuenta o publicación.</p>
+                  </div>
+                </div>
+                <div class="sos-step">
+                  <div class="sos-num">3</div>
+                  <div>
+                    <strong>Acude a apoyo institucional</strong>
+                    <p>Comunica el caso a Bienestar Universitario, Talento Humano o al Departamento de TIC.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <!-- MÓDULO 4: COMPROMISO COLABORATIVO TIC -->
-        <section class="step-panel" data-tab="4" aria-labelledby="titulo-compromiso" hidden>
-          <div class="panel-header-inline">
+        <!-- VISTA 4: MURO COLABORATIVO TIC -->
+        <section class="view-panel" data-view="wall" aria-labelledby="h-wall" hidden>
+          <div class="view-head">
             <div>
-              <h2 id="titulo-compromiso">Muro de Compromiso Digital · Equipo TIC</h2>
-              <p class="panel-desc">
-                Participa junto al equipo de TIC dejando tu compromiso por un entorno digital seguro y respetuoso.
-              </p>
+              <h2 id="h-wall">🤝 Muro de Compromisos Digitales · TIC UPEC</h2>
+              <p>Únete a nuestra cartelera dejando tu compromiso por un entorno digital libre de violencia.</p>
             </div>
-            <span class="score-badge" id="pledge-counter">Compromisos: 3</span>
+            <span class="score-pill" id="wall-counter">Compromisos: 3</span>
           </div>
 
-          <form class="pledge-form" id="pledge-form">
+          <form class="wall-form" id="wall-form">
             <input
               type="text"
-              id="pledge-name"
-              class="pledge-input"
-              placeholder="Escribe tu nombre..."
-              maxlength="35"
+              id="wall-name"
+              class="wall-input"
+              placeholder="Tu nombre o área..."
+              maxlength="34"
               required
             />
-            <select id="pledge-select" class="pledge-select" aria-label="Elige tu compromiso digital">
-              <option value="No reenviaré burlas, capturas ni rumores.">🛡️ No reenviaré burlas, capturas ni rumores</option>
-              <option value="Respetaré la privacidad y los horarios de mi equipo.">🤝 Respetaré la privacidad y los horarios de mi equipo</option>
-              <option value="Promoveré la empatía y el respeto en cada chat y correo.">💬 Promoveré la empatía en cada chat y correo</option>
-              <option value="Protegeré mis cuentas y apoyaré a quien sufra acoso digital.">🔒 Apoyaré a quien sufra acoso digital</option>
+            <select id="wall-pledge" class="wall-select" aria-label="Selecciona tu compromiso">
+              <option value="No reenviaré burlas, capturas ni rumores digitales.">🛡️ No reenviaré burlas, capturas ni rumores</option>
+              <option value="Respetaré la privacidad y el descanso de mi equipo.">🤝 Respetaré la privacidad y horarios del equipo</option>
+              <option value="Practicaré comunicación empática en chats y correos.">💬 Comunicación empática en chats y correos</option>
+              <option value="Activaré 2FA y apoyaré a quien sufra ciberacoso.">🔒 Seguridad activa y apoyo frente al acoso</option>
             </select>
-            <button type="submit" class="btn btn-accent">
-              ✨ Sumar Compromiso
+            <button type="submit" class="btn btn-amber">
+              ⚡ Sellar Compromiso
             </button>
           </form>
 
-          <div class="pledge-wall" id="pledge-wall" aria-live="polite">
-            <div class="pledge-chip">
-              <span class="pledge-emoji">💻</span>
+          <div class="wall-grid" id="wall-grid" aria-live="polite">
+            <div class="wall-card">
+              <span class="wall-emoji">💻</span>
               <div>
-                <strong>Equipo TIC · UPEC</strong>
-                <p>Promoveré la empatía y el respeto en cada chat y correo.</p>
+                <strong>Departamento de TIC</strong>
+                <p>Promovemos entornos digitales seguros, respetuosos e inclusivos.</p>
               </div>
             </div>
-            <div class="pledge-chip">
-              <span class="pledge-emoji">🛡️</span>
+            <div class="wall-card">
+              <span class="wall-emoji">🛡️</span>
               <div>
-                <strong>Soporte Técnico</strong>
-                <p>No reenviaré burlas, capturas ni rumores.</p>
+                <strong>Soporte e Infraestructura</strong>
+                <p>No reenviaré burlas, capturas ni rumores digitales.</p>
               </div>
             </div>
-            <div class="pledge-chip">
-              <span class="pledge-emoji">🤝</span>
+            <div class="wall-card">
+              <span class="wall-emoji">🤝</span>
               <div>
-                <strong>Desarrollo e Infraestructura</strong>
-                <p>Respetaré la privacidad y los horarios de mi equipo.</p>
+                <strong>Desarrollo de Sistemas</strong>
+                <p>Respetaré la privacidad y el descanso de mi equipo.</p>
               </div>
             </div>
-          </div>
-
-          <div class="step-footer">
-            <button type="button" class="btn btn-outline btn-go-tab" data-next="3">
-              ← Volver a Prevención
-            </button>
-            <button type="button" class="btn btn-primary btn-go-tab" data-next="1">
-              🔄 Volver al inicio
-            </button>
           </div>
         </section>
       </main>
-
-      <footer class="board-footer">
-        <p>
-          <strong>Departamento de Tecnologías de la Información y Comunicación (TIC)</strong> · UPEC · Concurso "Ponte 5 en tu Oficina" (18 – 26 de noviembre de 2026)
-        </p>
-      </footer>
     </div>
-
-    <!-- Logo derecho exterior: Ponte 5 -->
-    <aside class="outer-rail outer-rail-right" aria-label="Logotipo Ponte Cinco">
-      <div class="outer-logo-card outer-logo-card-ponte5">
-        <img
-          src="img/ponte%205.jpeg"
-          alt="Logotipo Ponte Cinco - Igualdad de Género"
-          class="outer-logo-img"
-        />
-      </div>
-    </aside>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>
