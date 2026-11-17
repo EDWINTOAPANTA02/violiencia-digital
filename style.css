@@ -1,23 +1,27 @@
 /* ==========================================================================
    Centro de Ciber-Convivencia TIC | Prevención de la Violencia Digital
-   Estilo Dashboard Tecnológico Oscuro (Diferenciado de Planificación)
+   Estilo Dashboard Tecnológico Claro, Limpio e Interactivo
    ========================================================================== */
 
 :root {
-  --bg-deep: #09111E;
-  --bg-surface: #111B2E;
-  --bg-glass: rgba(22, 34, 56, 0.82);
-  --bg-glass-light: rgba(255, 255, 255, 0.05);
+  --bg-canvas: #ECF2F8;
+  --bg-surface: #FFFFFF;
+  --bg-soft: #F5F8FC;
 
-  --emerald: #10B981;
-  --emerald-dark: #059669;
-  --cyan: #38BDF8;
+  --tech-blue: #0284C7;
+  --tech-blue-dark: #0369A1;
+  --tech-blue-soft: #E0F2FE;
+
+  --upec-green: #0F5934;
+  --upec-green-soft: #E8F5EE;
   --amber: #F2C037;
-  --coral: #F43F5E;
+  --amber-soft: #FEF8E6;
+  --coral: #E11D48;
+  --coral-soft: #FFF1F2;
 
-  --text-primary: #F1F5F9;
-  --text-muted: #94A3B8;
-  --border-glass: rgba(148, 163, 184, 0.18);
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --border-light: #DCE5F0;
 
   --radius-lg: 18px;
   --radius-md: 12px;
@@ -34,14 +38,14 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-deep);
+  background-color: var(--bg-canvas);
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(16, 185, 129, 0.14), transparent 38%),
-    radial-gradient(circle at 88% 82%, rgba(56, 189, 248, 0.14), transparent 40%),
-    linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 34px 34px, 34px 34px;
-  color: var(--text-primary);
+    radial-gradient(circle at 8% 12%, rgba(2, 132, 199, 0.1), transparent 36%),
+    radial-gradient(circle at 92% 88%, rgba(15, 89, 52, 0.08), transparent 36%),
+    linear-gradient(rgba(2, 132, 199, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 132, 199, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+  color: var(--text-main);
   min-height: 100vh;
   padding: 0.9rem;
   display: flex;
@@ -49,7 +53,6 @@ body {
   justify-content: center;
 }
 
-/* Shell principal tipo aplicación */
 .app-shell {
   width: 100%;
   max-width: 1420px;
@@ -63,18 +66,18 @@ body {
    ========================================================================== */
 .sidebar {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-glass);
+  border: 1.5px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: 1.1rem;
+  padding: 1.05rem;
   display: flex;
   flex-direction: column;
-  gap: 0.95rem;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  gap: 0.9rem;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
 }
 
 .brand-card {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(56, 189, 248, 0.08));
-  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: linear-gradient(135deg, var(--tech-blue-soft), var(--upec-green-soft));
+  border: 1.5px solid rgba(2, 132, 199, 0.25);
   border-radius: var(--radius-md);
   padding: 0.85rem;
 }
@@ -84,15 +87,18 @@ body {
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--amber);
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.05em;
+  color: var(--upec-green);
+  background-color: #FFFFFF;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.35rem;
 }
 
 .brand-dept {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.15rem;
-  color: #FFFFFF;
+  color: var(--text-main);
 }
 
 .brand-sub {
@@ -101,7 +107,7 @@ body {
   margin-top: 0.15rem;
 }
 
-/* Menú de navegación */
+/* Menú */
 .nav-menu {
   display: flex;
   flex-direction: column;
@@ -114,8 +120,8 @@ body {
   align-items: center;
   gap: 0.65rem;
   padding: 0.68rem 0.85rem;
-  background-color: transparent;
-  border: 1px solid transparent;
+  background-color: var(--bg-soft);
+  border: 1.5px solid transparent;
   border-radius: var(--radius-sm);
   color: var(--text-muted);
   font-family: inherit;
@@ -127,15 +133,14 @@ body {
 }
 
 .nav-btn:hover {
-  background-color: var(--bg-glass-light);
-  color: #FFFFFF;
+  background-color: var(--tech-blue-soft);
+  color: var(--tech-blue-dark);
 }
 
 .nav-btn.is-active {
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.22), rgba(56, 189, 248, 0.12));
-  border-color: rgba(16, 185, 129, 0.5);
+  background: linear-gradient(90deg, var(--tech-blue), #0EA5E9);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
 .nav-icon {
@@ -144,8 +149,8 @@ body {
 
 /* Medidor de Escudo */
 .shield-meter {
-  background-color: var(--bg-glass-light);
-  border: 1px solid var(--border-glass);
+  background-color: var(--bg-soft);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 0.75rem 0.85rem;
 }
@@ -158,20 +163,20 @@ body {
 }
 
 .meter-head strong {
-  color: var(--emerald);
+  color: var(--tech-blue-dark);
 }
 
 .meter-track {
   width: 100%;
-  height: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
+  height: 9px;
+  background-color: #DCE5F0;
   border-radius: 999px;
   overflow: hidden;
 }
 
 .meter-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--emerald), var(--cyan));
+  background: linear-gradient(90deg, var(--upec-green), var(--tech-blue));
   border-radius: 999px;
   transition: width 0.35s ease;
 }
@@ -182,7 +187,7 @@ body {
   margin-top: 0.4rem;
 }
 
-/* Sellos oficiales en la barra lateral */
+/* Sellos oficiales */
 .sidebar-logos {
   margin-top: auto;
   display: flex;
@@ -192,16 +197,13 @@ body {
 
 .logo-pill {
   background-color: #FFFFFF;
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   padding: 0.35rem 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 62px;
-}
-
-.logo-upec {
-  height: 58px;
+  height: 60px;
 }
 
 .logo-row-2 {
@@ -222,17 +224,17 @@ body {
 }
 
 /* ==========================================================================
-   Área Principal y Topbar
+   Área Principal
    ========================================================================== */
 .main-area {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-glass);
+  border: 1.5px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: 1.15rem 1.4rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
 }
 
 .topbar {
@@ -241,7 +243,7 @@ body {
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--border-glass);
+  border-bottom: 1.5px solid var(--border-light);
 }
 
 .topbar > div {
@@ -251,22 +253,22 @@ body {
 }
 
 .live-dot {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background-color: var(--emerald);
-  box-shadow: 0 0 10px var(--emerald);
+  background-color: var(--upec-green);
+  box-shadow: 0 0 0 4px var(--upec-green-soft);
   flex-shrink: 0;
 }
 
 .main-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.1rem, 1.9vw, 1.5rem);
-  color: #FFFFFF;
+  color: var(--text-main);
 }
 
 .main-title span {
-  color: var(--cyan);
+  color: var(--tech-blue);
 }
 
 /* Botones */
@@ -280,7 +282,7 @@ body {
   font-weight: 600;
   padding: 0.6rem 1.1rem;
   border-radius: var(--radius-sm);
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   cursor: pointer;
   transition: transform 0.15s ease, filter 0.2s ease, box-shadow 0.2s ease;
 }
@@ -290,24 +292,25 @@ body {
 }
 
 .btn-glass {
-  background-color: var(--bg-glass-light);
-  border-color: var(--border-glass);
-  color: var(--text-primary);
+  background-color: var(--bg-soft);
+  border-color: var(--border-light);
+  color: var(--text-main);
   white-space: nowrap;
 }
 
 .btn-glass:hover {
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: var(--tech-blue-soft);
+  border-color: var(--tech-blue);
 }
 
 .btn-cyan {
-  background: linear-gradient(135deg, var(--cyan), #0EA5E9);
-  color: #06131F;
+  background-color: var(--tech-blue);
+  color: #FFFFFF;
 }
 
 .btn-emerald {
-  background-color: var(--emerald);
-  color: #042419;
+  background-color: var(--upec-green);
+  color: #FFFFFF;
 }
 
 .btn-coral {
@@ -317,17 +320,17 @@ body {
 
 .btn-amber {
   background-color: var(--amber);
-  color: #1B1402;
+  color: #1F1702;
 }
 
 .btn-cyan:hover,
 .btn-emerald:hover,
 .btn-coral:hover,
 .btn-amber:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.06);
 }
 
-/* Escenario principal */
+/* Escenario */
 .stage {
   flex: 1;
   display: flex;
@@ -368,7 +371,7 @@ body {
 .view-head h2 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
-  color: #FFFFFF;
+  color: var(--text-main);
 }
 
 .view-head p {
@@ -378,9 +381,9 @@ body {
 }
 
 .score-pill {
-  background-color: rgba(242, 192, 55, 0.14);
-  border: 1px solid rgba(242, 192, 55, 0.45);
-  color: var(--amber);
+  background-color: var(--amber-soft);
+  border: 1.5px solid var(--amber);
+  color: #6B4F04;
   padding: 0.38rem 0.9rem;
   border-radius: 999px;
   font-size: 0.84rem;
@@ -409,10 +412,10 @@ body {
   align-items: center;
   gap: 0.85rem;
   padding: 0.85rem 1rem;
-  background-color: var(--bg-glass-light);
-  border: 1px solid var(--border-glass);
+  background-color: var(--bg-soft);
+  border: 1.5px solid var(--border-light);
   border-radius: var(--radius-md);
-  color: var(--text-primary);
+  color: var(--text-main);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -420,13 +423,14 @@ body {
 }
 
 .threat-item:hover {
-  border-color: var(--cyan);
+  border-color: var(--tech-blue);
+  background-color: #FFFFFF;
 }
 
 .threat-item.is-selected {
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.16), rgba(16, 185, 129, 0.08));
-  border-color: var(--cyan);
-  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.15);
+  background-color: var(--tech-blue-soft);
+  border-color: var(--tech-blue);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.14);
 }
 
 .threat-emoji {
@@ -444,8 +448,9 @@ body {
 }
 
 .threat-inspector {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background-color: var(--bg-soft);
+  border: 1.5px solid var(--border-light);
+  border-top: 5px solid var(--tech-blue);
   border-radius: var(--radius-lg);
   padding: 1.35rem;
   display: flex;
@@ -461,8 +466,8 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--cyan);
-  background-color: rgba(56, 189, 248, 0.12);
+  color: var(--tech-blue-dark);
+  background-color: var(--tech-blue-soft);
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
 }
@@ -470,12 +475,13 @@ body {
 .threat-inspector h3 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.35rem;
-  color: #FFFFFF;
+  color: var(--text-main);
 }
 
 .inspector-box {
-  background-color: rgba(9, 17, 30, 0.55);
-  border-left: 3px solid var(--amber);
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--amber);
   border-radius: var(--radius-sm);
   padding: 0.75rem 0.95rem;
   font-size: 0.88rem;
@@ -483,12 +489,12 @@ body {
 
 .inspector-box strong {
   display: block;
-  color: var(--amber);
+  color: var(--upec-green);
   margin-bottom: 0.2rem;
 }
 
 /* ==========================================================================
-   Vista 2: Simulador de Chat (Mockup de Teléfono)
+   Vista 2: Simulador de Chat
    ========================================================================== */
 .sim-layout {
   display: grid;
@@ -499,26 +505,27 @@ body {
 }
 
 .phone-mockup {
-  background-color: #0B141A;
-  border: 3px solid #2A3942;
+  background-color: #1E293B;
+  border: 3px solid #334155;
   border-radius: 26px;
-  padding: 0.65rem;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+  padding: 0.6rem;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.18);
 }
 
 .phone-notch {
-  width: 90px;
-  height: 10px;
-  background-color: #1F2C33;
+  width: 86px;
+  height: 9px;
+  background-color: #334155;
   border-radius: 999px;
-  margin: 0 auto 0.55rem;
+  margin: 0 auto 0.5rem;
 }
 
 .phone-header {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background-color: #1F2C33;
+  background-color: var(--upec-green);
+  color: #FFFFFF;
   padding: 0.55rem 0.75rem;
   border-radius: 12px 12px 0 0;
 }
@@ -527,7 +534,7 @@ body {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background-color: #2A3942;
+  background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -541,11 +548,11 @@ body {
 
 .phone-header small {
   font-size: 0.72rem;
-  color: var(--text-muted);
+  opacity: 0.85;
 }
 
 .phone-body {
-  background-color: #0F1A20;
+  background-color: #EFEAE2;
   min-height: 175px;
   padding: 1rem 0.75rem;
   border-radius: 0 0 14px 14px;
@@ -554,13 +561,14 @@ body {
 }
 
 .chat-bubble {
-  background-color: #202C33;
-  color: #E9EDEF;
+  background-color: #FFFFFF;
+  color: var(--text-main);
   padding: 0.75rem 0.9rem;
   border-radius: 0 12px 12px 12px;
   font-size: 0.88rem;
   line-height: 1.45;
-  border-left: 3px solid var(--cyan);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-left: 3px solid var(--tech-blue);
 }
 
 .sim-controls {
@@ -575,8 +583,8 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--cyan);
-  background-color: rgba(56, 189, 248, 0.14);
+  color: var(--tech-blue-dark);
+  background-color: var(--tech-blue-soft);
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
@@ -596,18 +604,19 @@ body {
   padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .sim-feedback.is-ok {
-  background-color: rgba(16, 185, 129, 0.14);
-  border: 1px solid var(--emerald);
-  color: #A7F3D0;
+  background-color: var(--upec-green-soft);
+  border: 1.5px solid var(--upec-green);
+  color: var(--upec-green);
 }
 
 .sim-feedback.is-bad {
-  background-color: rgba(244, 63, 94, 0.14);
-  border: 1px solid var(--coral);
-  color: #FECDD3;
+  background-color: var(--coral-soft);
+  border: 1.5px solid var(--coral);
+  color: #9F1239;
 }
 
 .sim-next-row {
@@ -617,74 +626,170 @@ body {
 }
 
 /* ==========================================================================
-   Vista 3: Escudo y Protocolo SOS
+   Vista 3: Escudo Interactivo y Protocolo SOS en 3 Clics
    ========================================================================== */
 .shield-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 1.1rem;
   flex: 1;
 }
 
 .glass-card {
-  background-color: var(--bg-glass-light);
-  border: 1px solid var(--border-glass);
+  background-color: var(--bg-soft);
+  border: 1.5px solid var(--border-light);
   border-radius: var(--radius-md);
-  padding: 1.1rem;
+  padding: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.card-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .glass-card h3 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.05rem;
-  margin-bottom: 0.85rem;
-  color: var(--amber);
+  font-size: 1.02rem;
+  color: var(--text-main);
 }
 
-.rules-list,
-.sos-timeline {
+.mini-counter {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--upec-green);
+  background-color: var(--upec-green-soft);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.card-sub-hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.rules-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
-.rule-item,
-.sos-step {
+.rule-toggle {
+  width: 100%;
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  font-size: 0.86rem;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.75rem;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rule-toggle:hover {
+  border-color: var(--tech-blue);
+}
+
+.rule-toggle.is-checked {
+  background-color: var(--upec-green-soft);
+  border-color: var(--upec-green);
 }
 
 .rule-badge {
   flex-shrink: 0;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  color: var(--cyan);
-  background-color: rgba(56, 189, 248, 0.12);
-  padding: 0.2rem 0.45rem;
+  font-size: 0.8rem;
+  color: var(--tech-blue-dark);
+  background-color: var(--tech-blue-soft);
+  padding: 0.22rem 0.5rem;
   border-radius: 6px;
 }
 
-.sos-num {
-  flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: var(--emerald);
-  color: #042419;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.rule-text {
+  flex: 1;
+  font-size: 0.84rem;
 }
 
-.rule-item p,
-.sos-step p {
+.rule-text strong {
+  display: block;
+  color: var(--text-main);
+}
+
+.rule-text p {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.rule-check {
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--text-muted);
 }
 
+.rule-toggle.is-checked .rule-check {
+  color: var(--upec-green);
+}
+
+/* Protocolo SOS en 3 clics */
+.sos-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.sos-tab {
+  padding: 0.5rem 0.4rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-light);
+  background-color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sos-tab.is-active {
+  background-color: var(--upec-green);
+  border-color: var(--upec-green);
+  color: #FFFFFF;
+}
+
+.sos-detail-box {
+  flex: 1;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--border-light);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.sos-detail-box h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  color: var(--upec-green);
+}
+
+.sos-detail-box p {
+  font-size: 0.89rem;
+  color: var(--text-main);
+}
+
 /* ==========================================================================
-   Vista 4: Muro TIC
+   Vista 4: Muro TIC con reacciones
    ========================================================================== */
 .wall-form {
   display: flex;
@@ -696,11 +801,11 @@ body {
 .wall-select {
   font-family: inherit;
   font-size: 0.88rem;
-  padding: 0.6rem 0.85rem;
+  padding: 0.58rem 0.85rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-glass);
-  background-color: rgba(9, 17, 30, 0.7);
-  color: #FFFFFF;
+  border: 1.5px solid var(--border-light);
+  background-color: var(--bg-soft);
+  color: var(--text-main);
 }
 
 .wall-input {
@@ -724,13 +829,17 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 0.6rem;
-  background-color: var(--bg-glass-light);
-  border: 1px solid var(--border-glass);
-  border-left: 3px solid var(--emerald);
+  background-color: var(--bg-soft);
+  border: 1.5px solid var(--border-light);
+  border-left: 4px solid var(--tech-blue);
   border-radius: var(--radius-sm);
   padding: 0.75rem;
   font-size: 0.83rem;
   animation: fadeSlide 0.25s ease forwards;
+}
+
+.wall-card-body {
+  flex: 1;
 }
 
 .wall-emoji {
@@ -740,6 +849,29 @@ body {
 .wall-card p {
   color: var(--text-muted);
   margin-top: 0.15rem;
+  margin-bottom: 0.45rem;
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  background-color: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.like-btn:hover {
+  border-color: var(--amber);
+  background-color: var(--amber-soft);
+  color: var(--text-main);
 }
 
 /* ==========================================================================
@@ -755,10 +887,7 @@ body {
     align-items: center;
   }
 
-  .logo-upec {
-    flex: 1;
-  }
-
+  .logo-upec,
   .logo-row-2 {
     flex: 1;
   }

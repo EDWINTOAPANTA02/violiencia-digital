@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initRadar();
   initChatSimulator();
+  initShieldInteractive();
   initPledgeWall();
 });
 
@@ -252,7 +253,62 @@ function initChatSimulator() {
 }
 
 /* ==========================================================================
-   Vista 4: Muro Colaborativo TIC
+   Vista 3: Reglas Interactivas + Protocolo SOS en 3 Clics
+   ========================================================================== */
+function initShieldInteractive() {
+  const ruleButtons = document.querySelectorAll('.rule-toggle');
+  const rulesCounter = document.getElementById('rules-counter');
+
+  ruleButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const checked = btn.classList.toggle('is-checked');
+      btn.setAttribute('aria-pressed', String(checked));
+      btn.querySelector('.rule-check').textContent = checked ? '✔' : '○';
+
+      const total = document.querySelectorAll('.rule-toggle.is-checked').length;
+      if (rulesCounter) {
+        rulesCounter.textContent = `${total} / ${ruleButtons.length} activadas`;
+      }
+    });
+  });
+
+  const sosData = {
+    1: {
+      title: '1. Conserva toda la evidencia',
+      text: 'No borres mensajes, correos ni audios. Toma capturas de pantalla donde se observe claramente la fecha, la hora y el perfil o número del remitente.',
+    },
+    2: {
+      title: '2. Bloquea y reporta',
+      text: 'Bloquea al agresor en la red social o aplicación de mensajería para frenar el contacto inmediato y utiliza el botón de reporte de la plataforma.',
+    },
+    3: {
+      title: '3. Busca apoyo institucional',
+      text: 'No enfrentes esto en silencio. Acude a Bienestar Universitario, Talento Humano o solicita orientación técnica al Departamento de TIC.',
+    },
+  };
+
+  const sosTabs = document.querySelectorAll('.sos-tab');
+  const sosBox = document.getElementById('sos-detail-box');
+
+  function renderSos(step) {
+    const info = sosData[step];
+    if (!info || !sosBox) return;
+    sosBox.innerHTML = `<h4>${info.title}</h4><p>${info.text}</p>`;
+  }
+
+  sosTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      sosTabs.forEach((t) => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      renderSos(tab.dataset.sos);
+    });
+  });
+
+  renderSos('1');
+}
+
+/* ==========================================================================
+   Vista 4: Muro Colaborativo TIC con Reacciones
    ========================================================================== */
 function initPledgeWall() {
   const form = document.getElementById('wall-form');
@@ -265,6 +321,15 @@ function initPledgeWall() {
   const emojis = ['💻', '🛡️', '🤝', '⚡', '🔒', '🌟'];
   let count = gridEl.querySelectorAll('.wall-card').length;
 
+  // Delegación para dar "👏" a cualquier compromiso del muro
+  gridEl.addEventListener('click', (e) => {
+    const likeBtn = e.target.closest('.like-btn');
+    if (!likeBtn) return;
+    const current = Number(likeBtn.dataset.likes || 0) + 1;
+    likeBtn.dataset.likes = String(current);
+    likeBtn.querySelector('span').textContent = String(current);
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const author = nameInput.value.trim();
@@ -272,7 +337,14 @@ function initPledgeWall() {
 
     const card = document.createElement('div');
     card.className = 'wall-card';
-    card.innerHTML = `<span class="wall-emoji" aria-hidden="true">${emojis[count % emojis.length]}</span><div><strong></strong><p></p></div>`;
+    card.innerHTML = `
+      <span class="wall-emoji" aria-hidden="true">${emojis[count % emojis.length]}</span>
+      <div class="wall-card-body">
+        <strong></strong>
+        <p></p>
+        <button type="button" class="like-btn" data-likes="1">👏 <span>1</span></button>
+      </div>
+    `;
     card.querySelector('strong').textContent = author;
     card.querySelector('p').textContent = pledgeInput.value;
 

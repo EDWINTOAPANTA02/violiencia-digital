@@ -10,7 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
   <div class="app-shell">
@@ -210,64 +210,56 @@
 
           <div class="shield-columns">
             <div class="glass-card">
-              <h3>✨ 4 Reglas de Oro del Buen Trato Digital</h3>
+              <div class="card-head-row">
+                <h3>✨ Activa las 4 Reglas del Buen Trato</h3>
+                <span class="mini-counter" id="rules-counter">0 / 4 activadas</span>
+              </div>
+              <p class="card-sub-hint">Haz clic en cada regla para comprometerte a practicarla:</p>
               <div class="rules-list">
-                <div class="rule-item">
+                <button type="button" class="rule-item rule-toggle" aria-pressed="false">
                   <span class="rule-badge">01</span>
-                  <div>
+                  <div class="rule-text">
                     <strong>Piensa antes de reenviar</strong>
-                    <p>No compartas memes, burlas ni capturas privadas. Cortar la cadena detiene el acoso.</p>
+                    <p>No compartas memes, burlas ni capturas privadas.</p>
                   </div>
-                </div>
-                <div class="rule-item">
+                  <span class="rule-check" aria-hidden="true">○</span>
+                </button>
+                <button type="button" class="rule-item rule-toggle" aria-pressed="false">
                   <span class="rule-badge">02</span>
-                  <div>
-                    <strong>Respeta la privacidad y horarios</strong>
-                    <p>Pide permiso antes de publicar fotos de colegas y respeta los tiempos de descanso.</p>
+                  <div class="rule-text">
+                    <strong>Respeta privacidad y horarios</strong>
+                    <p>Pide permiso antes de publicar fotos y respeta el descanso.</p>
                   </div>
-                </div>
-                <div class="rule-item">
+                  <span class="rule-check" aria-hidden="true">○</span>
+                </button>
+                <button type="button" class="rule-item rule-toggle" aria-pressed="false">
                   <span class="rule-badge">03</span>
-                  <div>
+                  <div class="rule-text">
                     <strong>Empatía en cada pantalla</strong>
-                    <p>Detrás de cada usuario hay una persona. Escribe con el mismo respeto que en persona.</p>
+                    <p>Escribe con el mismo respeto que en persona.</p>
                   </div>
-                </div>
-                <div class="rule-item">
+                  <span class="rule-check" aria-hidden="true">○</span>
+                </button>
+                <button type="button" class="rule-item rule-toggle" aria-pressed="false">
                   <span class="rule-badge">04</span>
-                  <div>
+                  <div class="rule-text">
                     <strong>Seguridad digital activa</strong>
-                    <p>Usa contraseñas robustas y doble factor (2FA) para evitar suplantaciones.</p>
+                    <p>Usa contraseñas fuertes y doble factor (2FA).</p>
                   </div>
-                </div>
+                  <span class="rule-check" aria-hidden="true">○</span>
+                </button>
               </div>
             </div>
 
             <div class="glass-card glass-card-sos">
-              <h3>🆘 Protocolo de Respuesta en 3 Pasos</h3>
-              <div class="sos-timeline">
-                <div class="sos-step">
-                  <div class="sos-num">1</div>
-                  <div>
-                    <strong>Conserva la evidencia</strong>
-                    <p>No borres los mensajes. Toma capturas donde se vea fecha, hora y usuario.</p>
-                  </div>
-                </div>
-                <div class="sos-step">
-                  <div class="sos-num">2</div>
-                  <div>
-                    <strong>Bloquea y reporta</strong>
-                    <p>Restringe al agresor en la plataforma y reporta la cuenta o publicación.</p>
-                  </div>
-                </div>
-                <div class="sos-step">
-                  <div class="sos-num">3</div>
-                  <div>
-                    <strong>Acude a apoyo institucional</strong>
-                    <p>Comunica el caso a Bienestar Universitario, Talento Humano o al Departamento de TIC.</p>
-                  </div>
-                </div>
+              <h3>🆘 Protocolo SOS en 3 Clics</h3>
+              <p class="card-sub-hint">Toca cada paso para saber qué hacer ante un incidente:</p>
+              <div class="sos-tabs">
+                <button type="button" class="sos-tab is-active" data-sos="1">1. Evidencia</button>
+                <button type="button" class="sos-tab" data-sos="2">2. Bloquea</button>
+                <button type="button" class="sos-tab" data-sos="3">3. Apoyo</button>
               </div>
+              <div class="sos-detail-box" id="sos-detail-box" aria-live="polite"></div>
             </div>
           </div>
         </section>
@@ -305,23 +297,26 @@
           <div class="wall-grid" id="wall-grid" aria-live="polite">
             <div class="wall-card">
               <span class="wall-emoji">💻</span>
-              <div>
+              <div class="wall-card-body">
                 <strong>Departamento de TIC</strong>
                 <p>Promovemos entornos digitales seguros, respetuosos e inclusivos.</p>
+                <button type="button" class="like-btn" data-likes="5">👏 <span>5</span></button>
               </div>
             </div>
             <div class="wall-card">
               <span class="wall-emoji">🛡️</span>
-              <div>
+              <div class="wall-card-body">
                 <strong>Soporte e Infraestructura</strong>
                 <p>No reenviaré burlas, capturas ni rumores digitales.</p>
+                <button type="button" class="like-btn" data-likes="3">👏 <span>3</span></button>
               </div>
             </div>
             <div class="wall-card">
               <span class="wall-emoji">🤝</span>
-              <div>
+              <div class="wall-card-body">
                 <strong>Desarrollo de Sistemas</strong>
                 <p>Respetaré la privacidad y el descanso de mi equipo.</p>
+                <button type="button" class="like-btn" data-likes="4">👏 <span>4</span></button>
               </div>
             </div>
           </div>
@@ -330,6 +325,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
