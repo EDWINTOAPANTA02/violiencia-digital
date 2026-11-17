@@ -10,9 +10,11 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
+  <!-- Lienzo ligero para confeti de celebración -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
   <div class="app-shell">
     <!-- BARRA LATERAL IZQUIERDA (Estilo App Tecnológica TIC) -->
     <aside class="sidebar">
@@ -260,6 +262,9 @@
                 <button type="button" class="sos-tab" data-sos="3">3. Apoyo</button>
               </div>
               <div class="sos-detail-box" id="sos-detail-box" aria-live="polite"></div>
+              <div class="shield-complete-banner" id="shield-complete-banner" hidden>
+                🛡️ ¡Excelente! Activaste las 4 reglas del Buen Trato Digital.
+              </div>
             </div>
           </div>
         </section>
@@ -294,6 +299,14 @@
             </button>
           </form>
 
+          <div class="ambassador-banner" id="ambassador-banner" hidden>
+            <span class="ambassador-seal" aria-hidden="true">🏅</span>
+            <div>
+              <strong id="ambassador-title">¡Insignia Digital Desbloqueada!</strong>
+              <p id="ambassador-sub">Gracias por sumarte al Escudo del Buen Trato · Departamento de TIC UPEC</p>
+            </div>
+          </div>
+
           <div class="wall-grid" id="wall-grid" aria-live="polite">
             <div class="wall-card">
               <span class="wall-emoji">💻</span>
@@ -325,6 +338,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

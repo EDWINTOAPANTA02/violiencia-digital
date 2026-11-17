@@ -3,7 +3,10 @@
  * Departamento de TIC - UPEC | Concurso "PONTE 5 EN TU OFICINA"
  */
 
+let launchConfetti = () => {};
+
 document.addEventListener('DOMContentLoaded', () => {
+  initConfetti();
   initFullscreen();
   initNavigation();
   initRadar();
@@ -11,6 +14,73 @@ document.addEventListener('DOMContentLoaded', () => {
   initShieldInteractive();
   initPledgeWall();
 });
+
+/* ==========================================================================
+   Efecto ligero de Confeti para logros e interacción
+   ========================================================================== */
+function initConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const colors = ['#0F5934', '#F2C037', '#0284C7', '#10B981', '#E11D48'];
+  let particles = [];
+  let animId = null;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.14;
+      p.rot += p.vr;
+      p.life -= 1;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, p.life / 90);
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      ctx.restore();
+    });
+
+    particles = particles.filter((p) => p.life > 0 && p.y < canvas.height + 20);
+    if (particles.length > 0) {
+      animId = requestAnimationFrame(tick);
+    } else {
+      animId = null;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  launchConfetti = () => {
+    const originX = canvas.width * 0.55;
+    const originY = canvas.height * 0.35;
+    for (let i = 0; i < 65; i += 1) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2.5 + Math.random() * 6.5;
+      particles.push({
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 3,
+        size: 6 + Math.random() * 6,
+        color: colors[i % colors.length],
+        rot: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.2,
+        life: 75 + Math.random() * 35,
+      });
+    }
+    if (!animId) tick();
+  };
+}
 
 /* ==========================================================================
    Modo Pantalla Completa
@@ -98,6 +168,8 @@ function initRadar() {
       desc: 'Hostigamiento reiterado mediante chats grupales, correos o mensajes con burlas, humillaciones o presión agresiva fuera de horario.',
       example: 'Crear memes ridiculizando a un compañero en el grupo de WhatsApp de la oficina.',
       alert: 'Afecta la salud emocional y genera ansiedad al revisar el celular o el correo.',
+      riskLabel: 'Impacto Emocional: Alto',
+      riskPct: 82,
     },
     doxxing: {
       badge: 'Amenaza Digital #2',
@@ -105,6 +177,8 @@ function initRadar() {
       desc: 'Publicar o reenviar fotografías, audios, capturas de conversaciones privadas o datos personales sin autorización.',
       example: 'Reenviar la captura de un chat privado o el número personal de un colega sin su permiso.',
       alert: 'Es una vulneración grave a la privacidad que puede escalar a extorsión.',
+      riskLabel: 'Riesgo de Privacidad: Crítico',
+      riskPct: 95,
     },
     suplantacion: {
       badge: 'Amenaza Digital #3',
@@ -112,6 +186,8 @@ function initRadar() {
       desc: 'Crear perfiles falsos o utilizar la cuenta institucional o personal de otra persona para enviar mensajes dañinos.',
       example: 'Abrir una cuenta anónima con la foto de un docente o administrativo para difundir rumores.',
       alert: 'Activa siempre la verificación en dos pasos (2FA) y no compartas tus contraseñas.',
+      riskLabel: 'Riesgo Reputacional: Crítico',
+      riskPct: 90,
     },
     exclusion: {
       badge: 'Amenaza Digital #4',
@@ -119,6 +195,8 @@ function initRadar() {
       desc: 'Aislar intencionalmente a un integrante de canales de comunicación, grupos de coordinación o reuniones virtuales.',
       example: 'Dejar fuera del grupo oficial de trabajo a una persona para impedirle cumplir sus funciones.',
       alert: 'El aislamiento digital también es una forma de violencia psicológica y laboral.',
+      riskLabel: 'Impacto Laboral: Alto',
+      riskPct: 78,
     },
   };
 
@@ -133,6 +211,10 @@ function initRadar() {
       <span class="inspector-badge">${data.badge}</span>
       <h3>${data.title}</h3>
       <p>${data.desc}</p>
+      <div class="risk-row">
+        <span>${data.riskLabel}</span>
+        <div class="risk-bar"><div class="risk-fill" style="width: ${data.riskPct}%"></div></div>
+      </div>
       <div class="inspector-box">
         <strong>Ejemplo en la oficina:</strong>
         <span>${data.example}</span>
@@ -203,6 +285,7 @@ function initChatSimulator() {
   const feedbackEl = document.getElementById('sim-feedback');
   const btnNext = document.getElementById('btn-sim-next');
   const choiceBtns = document.querySelectorAll('.btn-sim-choice');
+  const phoneMockup = document.querySelector('.phone-mockup');
 
   let index = 0;
   let score = 0;
@@ -218,6 +301,7 @@ function initChatSimulator() {
     progressEl.textContent = `Caso ${index + 1} de ${cases.length}`;
     feedbackEl.hidden = true;
     btnNext.hidden = true;
+    if (phoneMockup) phoneMockup.classList.remove('is-alert', 'is-safe');
   }
 
   choiceBtns.forEach((btn) => {
@@ -229,10 +313,20 @@ function initChatSimulator() {
       const ok = btn.dataset.choice === c.answer;
       if (ok) score += 1;
 
+      if (phoneMockup) {
+        phoneMockup.classList.remove('is-alert', 'is-safe');
+        phoneMockup.classList.add(c.answer === 'violence' ? 'is-alert' : 'is-safe');
+      }
+
       scoreEl.textContent = `Aciertos: ${score} / ${cases.length}`;
       feedbackEl.textContent = ok ? `¡Exacto! ${c.feedback}` : `Atención: ${c.feedback}`;
       feedbackEl.className = `sim-feedback ${ok ? 'is-ok' : 'is-bad'}`;
       feedbackEl.hidden = false;
+
+      if (index === cases.length - 1 && score >= 3) {
+        launchConfetti();
+      }
+
       btnNext.textContent = index < cases.length - 1 ? 'Siguiente Mensaje →' : '🔄 Reiniciar Simulador';
       btnNext.hidden = false;
     });
@@ -258,6 +352,7 @@ function initChatSimulator() {
 function initShieldInteractive() {
   const ruleButtons = document.querySelectorAll('.rule-toggle');
   const rulesCounter = document.getElementById('rules-counter');
+  const completeBanner = document.getElementById('shield-complete-banner');
 
   ruleButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -268,6 +363,11 @@ function initShieldInteractive() {
       const total = document.querySelectorAll('.rule-toggle.is-checked').length;
       if (rulesCounter) {
         rulesCounter.textContent = `${total} / ${ruleButtons.length} activadas`;
+      }
+      if (completeBanner) {
+        const allDone = total === ruleButtons.length;
+        completeBanner.hidden = !allDone;
+        if (allDone) launchConfetti();
       }
     });
   });
@@ -316,6 +416,8 @@ function initPledgeWall() {
   const pledgeInput = document.getElementById('wall-pledge');
   const gridEl = document.getElementById('wall-grid');
   const counterEl = document.getElementById('wall-counter');
+  const ambassadorBanner = document.getElementById('ambassador-banner');
+  const ambassadorTitle = document.getElementById('ambassador-title');
   if (!form || !gridEl) return;
 
   const emojis = ['💻', '🛡️', '🤝', '⚡', '🔒', '🌟'];
@@ -351,6 +453,13 @@ function initPledgeWall() {
     gridEl.prepend(card);
     count += 1;
     counterEl.textContent = `Compromisos: ${count}`;
+
+    if (ambassadorBanner && ambassadorTitle) {
+      ambassadorTitle.textContent = `¡Insignia Digital desbloqueada para ${author}!`;
+      ambassadorBanner.hidden = false;
+    }
+    launchConfetti();
+
     nameInput.value = '';
     nameInput.focus();
   });
