@@ -358,16 +358,41 @@
               <h2 id="h-game">🎮 Juego: Empareja la Amenaza con su Respuesta</h2>
               <p>Voltea las cartas y encuentra las 4 parejas: cada amenaza digital con su acción de buen trato.</p>
             </div>
-            <span class="score-pill" id="game-moves">Movimientos: 0</span>
+            <div class="game-stats">
+              <span class="score-pill" id="game-moves">Movimientos: 0</span>
+              <span class="score-pill" id="game-time">Tiempo: 0 s</span>
+            </div>
+          </div>
+
+          <div class="level-row" role="group" aria-label="Nivel de dificultad">
+            <button type="button" class="btn btn-glass level-btn is-active" data-level="facil" aria-pressed="true">Fácil</button>
+            <button type="button" class="btn btn-glass level-btn" data-level="medio" aria-pressed="false">Medio</button>
+            <button type="button" class="btn btn-glass level-btn" data-level="dificil" aria-pressed="false">Difícil</button>
           </div>
 
           <div class="game-board" id="game-board" aria-label="Tablero de cartas"></div>
 
           <div class="game-footer">
-            <p class="game-status" id="game-status" aria-live="polite">Encuentra las 4 parejas.</p>
+            <p class="game-status" id="game-status" aria-live="polite">Encuentra las parejas.</p>
+            <span class="best-pill" id="game-best">Mejor: —</span>
             <button type="button" class="btn btn-glass" id="btn-game-reset">↻ Reiniciar</button>
             <button type="button" class="btn btn-glass btn-jump" data-jump="wall">Firmar el Muro →</button>
           </div>
+
+          <!-- Registro de resultado: se muestra al completar el nivel -->
+          <form class="game-finish" id="game-finish-form">
+            <div id="game-finish" hidden>
+              <h3>🏅 Guarda tu resultado</h3>
+              <label class="finish-label" for="finish-name">Tu nombre</label>
+              <input type="text" id="finish-name" class="wall-input" maxlength="40" placeholder="Nombre y apellido" autocomplete="name" required />
+              <label class="finish-consent">
+                <input type="checkbox" id="finish-consent" />
+                <span>Acepto que mi nombre, nivel, movimientos y tiempo se guarden en el registro del concurso del Departamento de TIC (UPEC). No se guardan otros datos personales.</span>
+              </label>
+              <button type="submit" class="btn btn-amber">💾 Guardar resultado</button>
+              <p class="finish-msg" id="finish-msg" aria-live="polite"></p>
+            </div>
+          </form>
         </section>
       </main>
     </div>

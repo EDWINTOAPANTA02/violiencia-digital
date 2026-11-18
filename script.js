@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPledgeWall();
   initMemoryGame();
   initBackgroundMusic();
+  initVisitLog();
 });
 
 /* ==========================================================================
@@ -218,26 +219,85 @@ function initNavigation() {
 }
 
 /* ==========================================================================
-   Vista 5: Juego de Memoria (Empareja amenaza con respuesta)
+   Registro: visitas y resultados (Google Sheets vía Apps Script)
+   Configura SHEET_ENDPOINT con la URL de tu Web App. Si está vacío, no se envía nada.
+   ========================================================================== */
+const SHEET_ENDPOINT = '';
+
+function getVisitorId() {
+  try {
+    let id = localStorage.getItem('visitor-id');
+    if (!id) {
+      id = (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+      localStorage.setItem('visitor-id', id);
+    }
+    return id;
+  } catch {
+    return 'sin-almacenamiento';
+  }
+}
+
+function sendToSheet(payload) {
+  if (!SHEET_ENDPOINT) return Promise.resolve(false);
+  return fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ ...payload, fecha: new Date().toISOString() }),
+  })
+    .then(() => true)
+    .catch(() => false);
+}
+
+function initVisitLog() {
+  sendToSheet({ tipo: 'visita', visitorId: getVisitorId(), pagina: location.pathname });
+}
+
+/* ==========================================================================
+   Vista 5: Juego de Memoria (niveles, cronómetro, mejor marca y registro)
    ========================================================================== */
 function initMemoryGame() {
   const board = document.getElementById('game-board');
   const statusEl = document.getElementById('game-status');
   const movesEl = document.getElementById('game-moves');
+  const timeEl = document.getElementById('game-time');
+  const bestEl = document.getElementById('game-best');
   const resetBtn = document.getElementById('btn-game-reset');
+  const levelBtns = document.querySelectorAll('.level-btn');
+  const finishBox = document.getElementById('game-finish');
+  const finishForm = document.getElementById('game-finish-form');
+  const finishName = document.getElementById('finish-name');
+  const finishConsent = document.getElementById('finish-consent');
+  const finishMsg = document.getElementById('finish-msg');
   if (!board || !statusEl || !movesEl || !resetBtn) return;
 
-  const pairs = [
+  const allPairs = [
     { id: 'a', threat: '💬 Burla en el grupo de la oficina', answer: '🛡️ Pedir respeto y reportar al responsable' },
     { id: 'b', threat: '📸 Captura privada reenviada', answer: '🔒 No reenviar y borrar el contenido' },
     { id: 'c', threat: '🎭 Cuenta falsa con tu nombre', answer: '🚩 Reportar la suplantación a TIC' },
     { id: 'd', threat: '🚫 Excluido de los canales oficiales', answer: '🤝 Reincorporar por canales oficiales' },
+    { id: 'e', threat: '🌙 Mensajes fuera de horario', answer: '⏰ Respetar el horario y desconectar' },
+    { id: 'f', threat: '📷 Foto publicada sin permiso', answer: '🙋 Pedir que la retiren y reportar' },
+    { id: 'g', threat: '📧 Insultos en un correo', answer: '📨 Responder con respeto y escalar a TIC' },
+    { id: 'h', threat: '⚡ Presión para responder de noche', answer: '📅 Acordar horario y usar el canal oficial' },
   ];
 
+  const LEVELS = {
+    facil: { label: 'Fácil', pairs: 3 },
+    medio: { label: 'Medio', pairs: 6 },
+    dificil: { label: 'Difícil', pairs: 8 },
+  };
+
+  let level = 'facil';
   let flipped = [];
   let lock = false;
   let matched = 0;
   let moves = 0;
+  let totalPairs = 0;
+  let seconds = 0;
+  let timerId = null;
+  let started = false;
+  let finished = false;
 
   function shuffle(list) {
     for (let i = list.length - 1; i > 0; i--) {
@@ -247,8 +307,44 @@ function initMemoryGame() {
     return list;
   }
 
+  function bestKey() {
+    return `memo-best-${level}`;
+  }
+
+  function readBest() {
+    try {
+      return JSON.parse(localStorage.getItem(bestKey())) || null;
+    } catch {
+      return null;
+    }
+  }
+
+  function renderBest() {
+    const best = readBest();
+    if (bestEl) {
+      bestEl.textContent = best
+        ? `Mejor: ${best.moves} mov · ${best.seconds} s`
+        : 'Mejor: —';
+    }
+  }
+
+  function stopTimer() {
+    clearInterval(timerId);
+    timerId = null;
+  }
+
+  function startTimer() {
+    if (started) return;
+    started = true;
+    timerId = setInterval(() => {
+      seconds++;
+      if (timeEl) timeEl.textContent = `Tiempo: ${seconds} s`;
+    }, 1000);
+  }
+
   function onFlip(card) {
-    if (lock || card.classList.contains('is-flipped') || card.classList.contains('is-matched')) return;
+    if (finished || lock || card.classList.contains('is-flipped') || card.classList.contains('is-matched')) return;
+    startTimer();
 
     card.classList.add('is-flipped');
     card.setAttribute('aria-label', `${card.dataset.text}, boca arriba`);
@@ -264,9 +360,8 @@ function initMemoryGame() {
       second.classList.add('is-matched');
       flipped = [];
       matched++;
-      if (matched === pairs.length) {
-        statusEl.textContent = `🏆 ¡Completaste el juego en ${moves} movimientos! Escudo reforzado.`;
-        launchConfetti();
+      if (matched === totalPairs) {
+        finishGame();
       } else {
         statusEl.textContent = '✅ ¡Pareja correcta!';
       }
@@ -274,7 +369,6 @@ function initMemoryGame() {
       lock = true;
       statusEl.textContent = 'No coincide, intenta de nuevo.';
       setTimeout(() => {
-        // Si se reinició el tablero mientras esperaba, no tocar las cartas nuevas
         if (!board.contains(first)) return;
         first.classList.remove('is-flipped');
         second.classList.remove('is-flipped');
@@ -286,17 +380,64 @@ function initMemoryGame() {
     }
   }
 
+  function finishGame() {
+    finished = true;
+    stopTimer();
+    statusEl.textContent = `🏆 ¡Completaste el nivel ${LEVELS[level].label} en ${moves} movimientos y ${seconds} s!`;
+    launchConfetti();
+
+    const best = readBest();
+    const isBest = !best || moves < best.moves || (moves === best.moves && seconds < best.seconds);
+    if (isBest) {
+      try {
+        localStorage.setItem(bestKey(), JSON.stringify({ moves, seconds }));
+      } catch {
+        /* ignorar */
+      }
+      renderBest();
+    }
+
+    if (finishBox) {
+      finishBox.hidden = false;
+      finishMsg.textContent = '';
+      finishName.value = '';
+      finishConsent.checked = false;
+      finishForm.querySelector('button[type="submit"]').disabled = false;
+      finishName.focus();
+    }
+  }
+
   function build() {
+    stopTimer();
     board.innerHTML = '';
     flipped = [];
     lock = false;
     matched = 0;
     moves = 0;
-    movesEl.textContent = 'Movimientos: 0';
-    statusEl.textContent = `Encuentra las ${pairs.length} parejas.`;
+    seconds = 0;
+    started = false;
+    finished = false;
+    if (finishBox) finishBox.hidden = true;
 
+    const cfg = LEVELS[level];
+    totalPairs = cfg.pairs;
+    board.dataset.level = level;
+    board.style.setProperty('--cols', String(totalPairs <= 3 ? 3 : 4));
+
+    movesEl.textContent = 'Movimientos: 0';
+    if (timeEl) timeEl.textContent = 'Tiempo: 0 s';
+    statusEl.textContent = `Nivel ${cfg.label}: encuentra las ${totalPairs} parejas.`;
+    renderBest();
+
+    levelBtns.forEach((b) => {
+      const active = b.dataset.level === level;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+
+    const chosen = shuffle([...allPairs]).slice(0, totalPairs);
     const cards = shuffle(
-      pairs.flatMap((p) => [
+      chosen.flatMap((p) => [
         { pair: p.id, text: p.threat },
         { pair: p.id, text: p.answer },
       ])
@@ -322,6 +463,46 @@ function initMemoryGame() {
       card.append(back, front);
       card.addEventListener('click', () => onFlip(card));
       board.appendChild(card);
+    });
+  }
+
+  levelBtns.forEach((b) => {
+    b.addEventListener('click', () => {
+      level = b.dataset.level;
+      build();
+    });
+  });
+
+  if (finishForm) {
+    finishForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = finishName.value.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, 40);
+      if (name.length < 2) {
+        finishMsg.textContent = 'Escribe tu nombre (mínimo 2 letras).';
+        return;
+      }
+      if (!finishConsent.checked) {
+        finishMsg.textContent = 'Marca la casilla de consentimiento para guardar tu resultado.';
+        return;
+      }
+      finishForm.querySelector('button[type="submit"]').disabled = true;
+      finishMsg.textContent = 'Guardando...';
+      const ok = await sendToSheet({
+        tipo: 'juego',
+        visitorId: getVisitorId(),
+        nombre: name,
+        nivel: LEVELS[level].label,
+        movimientos: moves,
+        segundos: seconds,
+      });
+      if (!SHEET_ENDPOINT) {
+        finishMsg.textContent = 'Resultado listo (el registro en línea aún no está configurado).';
+      } else {
+        finishMsg.textContent = ok
+          ? '¡Gracias! Tu resultado quedó registrado.'
+          : 'No se pudo guardar. Intenta de nuevo más tarde.';
+      }
+      if (!ok) finishForm.querySelector('button[type="submit"]').disabled = false;
     });
   }
 

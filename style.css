@@ -1219,3 +1219,102 @@ body {
     font-size: 1rem;
   }
 }
+
+/* ==========================================================================
+   Juego: niveles, estadísticas, mejor marca y registro de resultado
+   ========================================================================== */
+.game-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.level-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.level-btn.is-active {
+  background-color: var(--pastel-blue);
+  border-color: var(--tech-blue);
+  color: #0F3D5C;
+  font-weight: 700;
+}
+
+.best-pill {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: var(--bg-soft);
+  border: 1.5px solid var(--border-light);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+}
+
+.game-board {
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+}
+
+.game-finish {
+  margin-top: 18px;
+}
+
+.game-finish #game-finish {
+  padding: 16px;
+  border: 1.5px solid var(--pastel-amber);
+  background-color: var(--amber-soft);
+  border-radius: var(--radius-md);
+}
+
+.game-finish h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 10px;
+}
+
+.game-finish #game-finish {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-finish[hidden],
+.game-finish #game-finish[hidden] {
+  display: none;
+}
+
+.finish-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.finish-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.finish-consent input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.finish-msg {
+  min-height: 1.2em;
+  font-weight: 600;
+  color: var(--tech-blue-dark);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .game-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
