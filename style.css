@@ -4,20 +4,27 @@
    ========================================================================== */
 
 :root {
-  --bg-canvas: #ECF2F8;
+  --bg-canvas: #F3F7FB;
   --bg-surface: #FFFFFF;
-  --bg-soft: #F5F8FC;
+  --bg-soft: #F8FAFD;
 
-  --tech-blue: #0284C7;
-  --tech-blue-dark: #0369A1;
-  --tech-blue-soft: #E0F2FE;
+  --tech-blue: #3D8FBF;
+  --tech-blue-dark: #2A6F97;
+  --tech-blue-soft: #E3F1FA;
 
-  --upec-green: #0F5934;
-  --upec-green-soft: #E8F5EE;
-  --amber: #F2C037;
-  --amber-soft: #FEF8E6;
-  --coral: #E11D48;
-  --coral-soft: #FFF1F2;
+  --upec-green: #2F7D5B;
+  --upec-green-soft: #EAF6EF;
+  --amber: #F7D774;
+  --amber-soft: #FFF8E1;
+  --coral: #E0687F;
+  --coral-soft: #FDEEF1;
+
+  /* Pastel: fondos suaves con texto oscuro para buena legibilidad */
+  --pastel-blue: #BFE0F2;
+  --pastel-green: #BFE6D0;
+  --pastel-coral: #F6C3CC;
+  --pastel-amber: #FBE7A1;
+  --pastel-ink: #1E293B;
 
   --text-main: #0F172A;
   --text-muted: #475569;
@@ -147,9 +154,9 @@ body {
 }
 
 .nav-btn.is-active {
-  background: linear-gradient(90deg, var(--tech-blue), #0EA5E9);
-  color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  background: linear-gradient(90deg, var(--pastel-blue), #D6EEFA);
+  color: #0F3D5C;
+  box-shadow: 0 4px 12px rgba(61, 143, 191, 0.18);
 }
 
 .nav-icon {
@@ -313,23 +320,23 @@ body {
 }
 
 .btn-cyan {
-  background-color: var(--tech-blue);
-  color: #FFFFFF;
+  background-color: var(--pastel-blue);
+  color: #0F3D5C;
 }
 
 .btn-emerald {
-  background-color: var(--upec-green);
-  color: #FFFFFF;
+  background-color: var(--pastel-green);
+  color: #14432B;
 }
 
 .btn-coral {
-  background-color: var(--coral);
-  color: #FFFFFF;
+  background-color: var(--pastel-coral);
+  color: #6B1D2A;
 }
 
 .btn-amber {
-  background-color: var(--amber);
-  color: #1F1702;
+  background-color: var(--pastel-amber);
+  color: #5C4400;
 }
 
 .btn-cyan:hover,
@@ -1142,9 +1149,6 @@ body {
 }
 
 @media (max-width: 640px) {
-  .nav-btn[data-view="game"] {
-    grid-column: 1 / -1;
-  }
 
   .game-board {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1153,4 +1157,65 @@ body {
 
   .memo-card { min-height: 104px; }
   .memo-face { font-size: 0.82rem; padding: 10px; }
+}
+
+/* ==========================================================================
+   v6: Ajustes móviles (barra inferior, áreas táctiles, texto legible)
+   ========================================================================== */
+@media (max-width: 640px) {
+  body {
+    padding-bottom: 96px;
+  }
+
+  /* Menú convertido en barra inferior fija con 5 íconos */
+  .nav-menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-light);
+    box-shadow: 0 -6px 18px rgba(15, 23, 42, 0.08);
+  }
+
+  .nav-btn {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-height: 56px;
+    padding: 6px 2px;
+    text-align: center;
+    font-size: 0.66rem;
+    line-height: 1.15;
+  }
+
+  .nav-icon {
+    font-size: 1.2rem;
+  }
+
+  /* El subtítulo de cada vista se oculta en móvil para reducir texto */
+  .view-head p {
+    display: none;
+  }
+
+  /* Áreas táctiles de al menos 44 px */
+  .btn {
+    min-height: 44px;
+  }
+
+  .like-btn {
+    min-height: 36px;
+    min-width: 44px;
+  }
+
+  /* 16 px evita el zoom automático en iPhone al escribir */
+  .wall-input,
+  .wall-select {
+    font-size: 1rem;
+  }
 }
