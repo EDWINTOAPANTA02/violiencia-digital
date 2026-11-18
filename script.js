@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initChatSimulator();
   initShieldInteractive();
   initPledgeWall();
+  initMemoryGame();
 });
 
 /* ==========================================================================
@@ -120,15 +121,16 @@ function initNavigation() {
   const hintEl = document.getElementById('meter-hint');
 
   const visited = new Set(['radar']);
+  const MODULE_COUNT = 5;
 
   function updateMeter() {
-    const pct = Math.round((visited.size / 4) * 100);
+    const pct = Math.round((visited.size / MODULE_COUNT) * 100);
     percentEl.textContent = `${pct}%`;
     fillEl.style.width = `${pct}%`;
     hintEl.textContent =
       pct === 100
         ? '🛡️ ¡Escudo Digital 100% activado!'
-        : `Has explorado ${visited.size} de 4 módulos`;
+        : `Has explorado ${visited.size} de ${MODULE_COUNT} módulos`;
   }
 
   function showView(viewId) {
@@ -155,6 +157,118 @@ function initNavigation() {
   });
 
   updateMeter();
+}
+
+/* ==========================================================================
+   Vista 5: Juego de Memoria (Empareja amenaza con respuesta)
+   ========================================================================== */
+function initMemoryGame() {
+  const board = document.getElementById('game-board');
+  const statusEl = document.getElementById('game-status');
+  const movesEl = document.getElementById('game-moves');
+  const resetBtn = document.getElementById('btn-game-reset');
+  if (!board || !statusEl || !movesEl || !resetBtn) return;
+
+  const pairs = [
+    { id: 'a', threat: '💬 Burla en el grupo de la oficina', answer: '🛡️ Pedir respeto y reportar al responsable' },
+    { id: 'b', threat: '📸 Captura privada reenviada', answer: '🔒 No reenviar y borrar el contenido' },
+    { id: 'c', threat: '🎭 Cuenta falsa con tu nombre', answer: '🚩 Reportar la suplantación a TIC' },
+    { id: 'd', threat: '🚫 Excluido de los canales oficiales', answer: '🤝 Reincorporar por canales oficiales' },
+  ];
+
+  let flipped = [];
+  let lock = false;
+  let matched = 0;
+  let moves = 0;
+
+  function shuffle(list) {
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
+    }
+    return list;
+  }
+
+  function onFlip(card) {
+    if (lock || card.classList.contains('is-flipped') || card.classList.contains('is-matched')) return;
+
+    card.classList.add('is-flipped');
+    card.setAttribute('aria-label', `${card.dataset.text}, boca arriba`);
+    flipped.push(card);
+    if (flipped.length < 2) return;
+
+    moves++;
+    movesEl.textContent = `Movimientos: ${moves}`;
+    const [first, second] = flipped;
+
+    if (first.dataset.pair === second.dataset.pair) {
+      first.classList.add('is-matched');
+      second.classList.add('is-matched');
+      flipped = [];
+      matched++;
+      if (matched === pairs.length) {
+        statusEl.textContent = `🏆 ¡Completaste el juego en ${moves} movimientos! Escudo reforzado.`;
+        launchConfetti();
+      } else {
+        statusEl.textContent = '✅ ¡Pareja correcta!';
+      }
+    } else {
+      lock = true;
+      statusEl.textContent = 'No coincide, intenta de nuevo.';
+      setTimeout(() => {
+        // Si se reinició el tablero mientras esperaba, no tocar las cartas nuevas
+        if (!board.contains(first)) return;
+        first.classList.remove('is-flipped');
+        second.classList.remove('is-flipped');
+        first.setAttribute('aria-label', 'Carta boca abajo');
+        second.setAttribute('aria-label', 'Carta boca abajo');
+        flipped = [];
+        lock = false;
+      }, 900);
+    }
+  }
+
+  function build() {
+    board.innerHTML = '';
+    flipped = [];
+    lock = false;
+    matched = 0;
+    moves = 0;
+    movesEl.textContent = 'Movimientos: 0';
+    statusEl.textContent = `Encuentra las ${pairs.length} parejas.`;
+
+    const cards = shuffle(
+      pairs.flatMap((p) => [
+        { pair: p.id, text: p.threat },
+        { pair: p.id, text: p.answer },
+      ])
+    );
+
+    cards.forEach((data, index) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'memo-card';
+      card.dataset.pair = data.pair;
+      card.dataset.text = data.text;
+      card.setAttribute('aria-label', `Carta ${index + 1}, boca abajo`);
+
+      const back = document.createElement('span');
+      back.className = 'memo-face memo-back';
+      back.setAttribute('aria-hidden', 'true');
+      back.textContent = '?';
+
+      const front = document.createElement('span');
+      front.className = 'memo-face memo-front';
+      front.textContent = data.text;
+
+      card.append(back, front);
+      card.addEventListener('click', () => onFlip(card));
+      board.appendChild(card);
+    });
+  }
+
+  resetBtn.addEventListener('click', build);
+  build();
 }
 
 /* ==========================================================================

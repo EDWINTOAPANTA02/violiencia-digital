@@ -1004,3 +1004,103 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ==========================================================================
+   Vista 5: Juego de Memoria
+   ========================================================================== */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.memo-card {
+  position: relative;
+  min-height: 124px;
+  padding: 0;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.15s ease, border-color 0.2s ease;
+}
+
+.memo-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--tech-blue);
+}
+
+.memo-card:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.memo-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  transition: opacity 0.25s ease;
+}
+
+.memo-back {
+  background: linear-gradient(135deg, var(--tech-blue), var(--upec-green));
+  color: #fff;
+  font-size: 2rem;
+}
+
+.memo-front {
+  opacity: 0;
+  background: var(--tech-blue-soft);
+}
+
+.memo-card.is-flipped .memo-back,
+.memo-card.is-matched .memo-back {
+  opacity: 0;
+}
+
+.memo-card.is-flipped .memo-front,
+.memo-card.is-matched .memo-front {
+  opacity: 1;
+}
+
+.memo-card.is-matched {
+  border-color: var(--upec-green);
+  cursor: default;
+  transform: none;
+}
+
+.memo-card.is-matched .memo-front {
+  background: var(--upec-green-soft);
+  color: var(--upec-green);
+}
+
+.game-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.game-status {
+  flex: 1 1 240px;
+  margin: 0;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .memo-card { min-height: 104px; }
+  .memo-face { font-size: 0.85rem; padding: 10px; }
+}

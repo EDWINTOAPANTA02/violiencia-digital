@@ -10,7 +10,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 <body>
   <!-- Lienzo ligero para confeti de celebración -->
@@ -42,18 +42,22 @@
           <span class="nav-icon" aria-hidden="true">🤝</span>
           <span>4. Muro TIC</span>
         </button>
+        <button type="button" class="nav-btn" data-view="game">
+          <span class="nav-icon" aria-hidden="true">🎮</span>
+          <span>5. Juego Memoria</span>
+        </button>
       </nav>
 
       <!-- Medidor gamificado de progreso -->
       <div class="shield-meter">
         <div class="meter-head">
           <span>Nivel de Escudo</span>
-          <strong id="shield-percent">25%</strong>
+          <strong id="shield-percent">20%</strong>
         </div>
         <div class="meter-track">
-          <div class="meter-fill" id="shield-fill" style="width: 25%"></div>
+          <div class="meter-fill" id="shield-fill" style="width: 20%"></div>
         </div>
-        <p class="meter-hint" id="meter-hint">Explora los 4 módulos para activar tu escudo</p>
+        <p class="meter-hint" id="meter-hint">Explora los 5 módulos para activar tu escudo</p>
       </div>
 
       <!-- Sellos oficiales requeridos por el concurso -->
@@ -334,10 +338,29 @@
             </div>
           </div>
         </section>
+
+        <!-- VISTA 5: JUEGO DE MEMORIA (Empareja amenaza con respuesta) -->
+        <section class="view-panel" data-view="game" aria-labelledby="h-game" hidden>
+          <div class="view-head">
+            <div>
+              <h2 id="h-game">🎮 Juego: Empareja la Amenaza con su Respuesta</h2>
+              <p>Voltea las cartas y encuentra las 4 parejas: cada amenaza digital con su acción de buen trato.</p>
+            </div>
+            <span class="score-pill" id="game-moves">Movimientos: 0</span>
+          </div>
+
+          <div class="game-board" id="game-board" aria-label="Tablero de cartas"></div>
+
+          <div class="game-footer">
+            <p class="game-status" id="game-status" aria-live="polite">Encuentra las 4 parejas.</p>
+            <button type="button" class="btn btn-glass" id="btn-game-reset">↻ Reiniciar</button>
+            <button type="button" class="btn btn-glass btn-jump" data-jump="wall">Firmar el Muro →</button>
+          </div>
+        </section>
       </main>
     </div>
   </div>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
