@@ -14,7 +14,65 @@ document.addEventListener('DOMContentLoaded', () => {
   initShieldInteractive();
   initPledgeWall();
   initMemoryGame();
+  initBackgroundMusic();
 });
+
+/* ==========================================================================
+   Música de fondo: arranca con el primer toque y se puede pausar
+   ========================================================================== */
+function initBackgroundMusic() {
+  const audio = document.getElementById('bg-music');
+  const btn = document.getElementById('btn-music');
+  if (!audio || !btn) return;
+
+  audio.volume = 0.5;
+  let wantsPlay = true;
+  try {
+    wantsPlay = localStorage.getItem('bg-music') !== 'off';
+  } catch {
+    /* almacenamiento bloqueado: se usa el valor por defecto */
+  }
+
+  function render(playing) {
+    btn.setAttribute('aria-pressed', String(playing));
+    btn.textContent = playing ? '🔊 Música' : '🔈 Música';
+  }
+
+  function play() {
+    audio.play().then(() => render(true)).catch(() => render(false));
+  }
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      wantsPlay = true;
+      play();
+    } else {
+      wantsPlay = false;
+      audio.pause();
+      render(false);
+    }
+    try {
+      localStorage.setItem('bg-music', wantsPlay ? 'on' : 'off');
+    } catch {
+      /* ignorar */
+    }
+  });
+
+  audio.addEventListener('pause', () => render(false));
+  audio.addEventListener('play', () => render(true));
+
+  // Autoplay: el navegador lo bloquea hasta que haya una interacción del usuario
+  if (wantsPlay) {
+    const startOnce = () => {
+      if (audio.paused && wantsPlay) play();
+      document.removeEventListener('pointerdown', startOnce);
+      document.removeEventListener('keydown', startOnce);
+    };
+    document.addEventListener('pointerdown', startOnce);
+    document.addEventListener('keydown', startOnce);
+    play();
+  }
+}
 
 /* ==========================================================================
    Efecto ligero de Confeti para logros e interacción

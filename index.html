@@ -94,7 +94,19 @@
         >
           ⛶ Pantalla Completa
         </button>
+        <button
+          type="button"
+          class="btn btn-glass"
+          id="btn-music"
+          aria-pressed="false"
+          title="Activar o pausar la canción"
+        >
+          🔈 Música
+        </button>
       </header>
+
+      <!-- Canción de fondo (se inicia con el primer toque; el navegador bloquea el audio automático) -->
+      <audio id="bg-music" src="audio/cero-violencia-digital.mp3" loop preload="auto"></audio>
 
       <!-- VISTAS INTERACTIVAS -->
       <main class="stage">
@@ -361,6 +373,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
