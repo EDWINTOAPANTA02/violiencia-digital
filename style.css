@@ -994,14 +994,55 @@ body {
 }
 
 @media (max-width: 640px) {
+  .app-shell {
+    gap: 0.75rem;
+  }
+
+  .main-area {
+    padding: 1rem;
+  }
+
   .topbar {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.75rem;
   }
 
   .nav-menu {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  .view-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Evita que el select/input largos empujen la página a los lados */
+  .wall-form,
+  .wall-form > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .wall-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wall-input,
+  .wall-select {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .wall-select {
+    text-overflow: ellipsis;
+  }
+
+  .game-footer .btn {
+    flex: 1 1 100%;
   }
 }
 
@@ -1101,6 +1142,15 @@ body {
 }
 
 @media (max-width: 640px) {
+  .nav-btn[data-view="game"] {
+    grid-column: 1 / -1;
+  }
+
+  .game-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
   .memo-card { min-height: 104px; }
-  .memo-face { font-size: 0.85rem; padding: 10px; }
+  .memo-face { font-size: 0.82rem; padding: 10px; }
 }
